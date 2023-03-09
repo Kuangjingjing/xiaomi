@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 600px;
+            height: 500px;
+            border: 1px solid #ccc;
+            margin: 100px auto 0;
+        }
+
+        .hd {
+            width: 100%;
+            height: 100px;
+            background-color: skyblue;
+            text-align: center;
+            line-height: 100px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .hd span {
+            float: left;
+            width: 150px;
+            height: 100%;
+        }
+
+        .hd span.active {
+            background-color: orange;
+            color: #000;
+        }
+
+        .content {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+
+        .content div {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: teal;
+        }
+
+        .content div.cur {
+            display: block;
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="hd">
+            <span class="active">电影</span>
+            <span>音乐</span>
+            <span>综艺</span>
+            <span>动漫</span>
+        </div>
+        <div class="content">
+            <div class="cur">《这个杀手不太冷静》</div>
+            <div>《孤勇者》</div>
+            <div>《一往无前的蓝》</div>
+            <div>《完美世界》</div>
+        </div>
+    </div>
+
+    <script>
+
+        function Tab() {
+            this.hd = document.querySelector('.hd')
+            this.content = document.querySelector('.content')
+            this.spans = this.hd.querySelectorAll('span')
+            this.divs = this.content.querySelectorAll('div')
+
+            this.init()
+        }
+
+        Tab.prototype = {
+            constructor: Tab,
+            // 初始化方法的入口方法
+            init() {
+                this.toggleTab()
+            },
+            /* 切换tab选项卡 */
+            toggleTab() {
+                var that = this
+                for (var i = 0; i < this.spans.length; i++) {
+                    this.spans[i].index = i
+                    this.spans[i].onclick = function () {
+                        that.clearClassName()
+                        this.className = 'active'
+                        that.divs[this.index].className = 'cur'
+                    }
+                }
+            },
+            clearClassName() {
+                // 排他
+                for (var j = 0; j < this.spans.length; j++) {
+                    this.spans[j].className = ''
+                    this.divs[j].className = ''
+                }
+            }
+        }
+        new Tab()
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
